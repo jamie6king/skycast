@@ -36,7 +36,7 @@ export default [
                 directory: path.join('public'),
             },
             hot: true,
-            open: true,
+            open: false,
             historyApiFallback: true,
         },
     }

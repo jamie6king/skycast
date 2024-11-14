@@ -19,7 +19,9 @@ jobs:
           node-version: 20
         
       - name: Install dependencies
-        run: npm i
+        run: |
+               npm i
+               npx playwright install
 
       - name: Run tests
         run: npm run test

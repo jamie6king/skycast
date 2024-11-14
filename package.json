@@ -11,6 +11,9 @@
         "test": "npm run testClient && npm run testServer",
         "dev": "concurrently --kill-others \"npm run server\" \"npm run client\""
     },
+    "jest": {
+        "testMatch": ["**/tests/jest/*.test.js"]
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/jamie6king/skycast.git"
