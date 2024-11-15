@@ -29,4 +29,17 @@ describe("weather fetching", () => {
         
         expect(weather.name).toBe("London");
     });
+
+    it("fetches the 5-day 3-hour forecast for a city", async () => {
+        const fetcher = new WeatherFetcher();
+        const coords = await fetcher._fetchCoords("london");
+
+        const lat = coords[0].lat;
+        const lon = coords[0].lon;
+
+        const forecast = await fetcher.fetchForecast(lat, lon);
+
+        expect(forecast.city.name).toBe("London");
+        expect(forecast.list.length).toBe(40);
+    });
 });
