@@ -1,5 +1,4 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import * as path from "node:path";
 
 export default [
     {
@@ -18,8 +17,17 @@ export default [
                     },
                 },
                 {
-                    test: /\.scss$/,
-                    use: ['style-loader', 'css-loader', 'sass-loader'],
+                    test: /\.(scss|css)$/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                            },
+                        },
+                        'sass-loader',
+                    ],
                 },
             ],
         },
@@ -33,11 +41,11 @@ export default [
         ],
         devServer: {
             static: {
-                directory: path.join('public'),
+                directory: "./public",
             },
             hot: true,
             open: false,
             historyApiFallback: true,
         },
-    }
+    },
 ];

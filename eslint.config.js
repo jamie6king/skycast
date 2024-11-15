@@ -11,6 +11,7 @@ const compat = new FlatCompat({
 
 export default [
   js.configs.recommended,
+
   {
     languageOptions: {
       sourceType: "module",
@@ -19,7 +20,7 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
-        requireConfigFile: false, // Allows Babel ESLint parser to run without a Babel config file
+        requireConfigFile: false,
       },
       globals: {
         ...globals.browser,
@@ -27,9 +28,11 @@ export default [
       },
     },
   },
+
   ...compat.extends("plugin:react/recommended"),
   ...compat.extends("plugin:react-hooks/recommended"),
   ...compat.extends("plugin:jest/recommended"),
+
   {
     plugins: {
       "@babel": babelPlugin,
@@ -46,6 +49,7 @@ export default [
       },
     },
   },
+
   {
     files: ["**/tests/jest/*.test.js"],
     languageOptions: {
@@ -54,11 +58,12 @@ export default [
       },
     },
   },
+
   {
     files: ["**/tests/playwright/*.js"],
     ...playwright.configs["flat/recommended"],
     rules: {
-      ...playwright.configs["flat/recommended"].rules
-    }
-  }
+      ...playwright.configs["flat/recommended"].rules,
+    },
+  },
 ];
