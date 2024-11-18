@@ -1,5 +1,3 @@
-import path from "path";
-
 // setup env variables
 import dotenv from "dotenv";
 dotenv.config();
@@ -12,6 +10,13 @@ const fetcher = new WeatherFetcher();
 import express from "express";
 const app = express();
 const port = process.env.PORT || 3000;
+
+// setup path
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ensure api key is set
 const apiKey = process.env.API_KEY;
@@ -42,7 +47,7 @@ app.use((req, res, next) => {
 
 // serve static frontend
 app.use(express.static(path.join(__dirname, '../client')));
-app.use(express.static(path.join("__dirname", "../public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/index.html"));
