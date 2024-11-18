@@ -9,7 +9,8 @@
         "testClient": "playwright test",
         "testServer": "node --experimental-vm-modules node_modules/jest/bin/jest.js --setupFiles 'dotenv/config'",
         "test": "npm run testClient && npm run testServer",
-        "dev": "concurrently --kill-others \"npm run server\" \"npm run client\""
+        "dev": "concurrently --kill-others \"npm run server\" \"npm run client\"",
+        "build": "webpack --config webpack.config.js"
     },
     "repository": {
         "type": "git",

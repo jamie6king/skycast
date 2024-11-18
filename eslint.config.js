@@ -11,7 +11,9 @@ const compat = new FlatCompat({
 
 export default [
   js.configs.recommended,
-
+  {
+    ignores: ["**/dist"]
+  },
   {
     languageOptions: {
       sourceType: "module",

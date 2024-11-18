@@ -1,0 +1,13 @@
+**/.DS_Store
+.git/
+.github/
+node_modules/
+test-results/
+tests/
+.dockerignore
+.gitignore
+Dockerfile
+eslint.config.js
+nodemon.json
+playwright.config.js
+README.md
