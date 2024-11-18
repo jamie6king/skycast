@@ -19,11 +19,11 @@ COPY package*.json .
 RUN npm install --production
 
 # copy compiled files
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/dist .
 COPY --from=builder /app/public ./public
 
 # expose the application port
 EXPOSE 3000
 
 # run the bundled server file
-CMD [ "node", "dist/server/server.bundle.cjs" ]
+CMD [ "node", "./server/server.bundle.cjs" ]
