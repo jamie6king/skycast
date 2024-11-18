@@ -78,6 +78,8 @@ export default [
             extensions: [".js"],
         },
         externals: {
+            express: "commonjs express",
+            os: "commonjs os",
             fs: "commonjs fs",
             path: "commonjs path",
             dotenv: "commonjs dotenv"
