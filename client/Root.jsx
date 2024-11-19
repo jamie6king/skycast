@@ -25,13 +25,13 @@ export default function Root() {
 
         setLoading(true)
 
-        const url = "http://localhost:3000/locations"
+        const url = (process.env.NODE_ENV === "development") ? "http://localhost:3000/locations" : "/locations"
 
         if (searchTimeout) clearTimeout(searchTimeout);
         searchTimeout = setTimeout(async () => {
             try {
 
-                const response = await fetch("http://localhost:3000/locations", {
+                const response = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ string: search }),

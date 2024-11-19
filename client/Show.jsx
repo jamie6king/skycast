@@ -44,9 +44,9 @@ export default function Weather() {
         const fetchWeatherData = async () => {
 
             // urls
-            const weatherUrl = "http://localhost:3000/weather";
-            const forecastUrl = "http://localhost:3000/forecast";
-            const airQualityUrl = "http://localhost:3000/airquality";
+            const weatherUrl =(process.env.NODE_ENV === "development") ? "http://localhost:3000/weather" :  "/weather";
+            const forecastUrl = (process.env.NODE_ENV === "development") ? "http://localhost:3000/forecast" : "/forecast";
+            const airQualityUrl = (process.env.NODE_ENV === "development") ? "http://localhost:3000/airquality" : "/airquality";
             const lat = searchParams.get("lat");
             const lon = searchParams.get("lon");
             const tz = tz_lookup(lat, lon)

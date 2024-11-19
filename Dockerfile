@@ -13,6 +13,7 @@ RUN npm run build
 # setup app
 FROM node:20
 WORKDIR /app
+ENV NODE_ENV="production"
 
 # install production dependencies
 COPY package*.json .
