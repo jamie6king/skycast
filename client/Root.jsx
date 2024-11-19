@@ -53,7 +53,7 @@ export default function Root() {
             } finally {
                 setLoading(false);
             };
-        }, 1000);
+        }, 100);
     };
     
     const findLocation = (e) => {
