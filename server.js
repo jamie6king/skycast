@@ -32,9 +32,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
 
     const allowedOrigins = [
-        "http://localhost",
+        "http://localhost:3000",
         "http://127.0.0.1:8080",
-        process.env.URL
+        "http://127.0.0.1:3000"
     ];
     
     if (allowedOrigins.includes(req.headers.origin)) {
