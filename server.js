@@ -36,6 +36,8 @@ app.use((req, res, next) => {
         "http://127.0.0.1:8080",
         "http://127.0.0.1:3000"
     ];
+
+    console.log(`Accessed from ${req.headers.origin} origin.`);
     
     if (allowedOrigins.includes(req.headers.origin)) {
         res.header("Access-Control-Allow-Origin", req.headers.origin);
