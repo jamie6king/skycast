@@ -84,6 +84,22 @@ app.post("/weather", async (req, res) => {
     }
 });
 
+// return the current air quality
+app.post("/airquality", async (req, res) => {
+
+    try {
+
+        const { lat, lon } = req.body;
+        const response = await fetcher.fetchAirQuality(lat, lon);
+        res.send(response);
+
+    } catch {
+
+        res.status(500).send({ error: "Error fetching air quality" });
+
+    }
+});
+
 // return the 5-day 3-hour forecast
 app.post("/forecast", async (req, res) => {
 

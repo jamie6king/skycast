@@ -30,6 +30,19 @@ describe("weather fetching", () => {
         expect(weather.name).toBe("London");
     });
 
+    it("fetches the air quality for a city", async () => {
+        const fetcher = new WeatherFetcher();
+        const coords = await fetcher._fetchCoords("london");
+
+        const lat = coords[0].lat;
+        const lon = coords[0].lon;
+
+        const weather = await fetcher.fetchAirQuality(lat, lon);
+        
+        expect(weather.coord.lat.toFixed(3)).toBe(lat.toFixed(3));
+        expect(weather.coord.lon.toFixed(3)).toBe(lon.toFixed(3));
+    });
+
     it("fetches the 5-day 3-hour forecast for a city", async () => {
         const fetcher = new WeatherFetcher();
         const coords = await fetcher._fetchCoords("london");
