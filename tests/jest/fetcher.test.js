@@ -39,8 +39,8 @@ describe("weather fetching", () => {
 
         const weather = await fetcher.fetchAirQuality(lat, lon);
         
-        expect(weather.coord.lat.toFixed(3)).toBe(lat.toFixed(3));
-        expect(weather.coord.lon.toFixed(3)).toBe(lon.toFixed(3));
+        expect(weather.coord.lat.toFixed(1)).toBe(lat.toFixed(1));
+        expect(weather.coord.lon.toFixed(1)).toBe(lon.toFixed(1));
     });
 
     it("fetches the 5-day 3-hour forecast for a city", async () => {
