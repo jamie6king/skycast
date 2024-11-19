@@ -14,6 +14,7 @@ RUN npm run build
 FROM node:20
 WORKDIR /app
 ENV NODE_ENV="production"
+ENV REACT_APP_LOCAL="yes"
 
 # install production dependencies
 COPY package*.json .
