@@ -10,11 +10,11 @@
 .weather {
     display: grid;
     grid-template-rows: min-content auto;
-    padding: 16px;
 }
 
 .locationBar {
     position: relative;
+    margin: 16px;
     padding: 16px;
     display: flex;
     align-items: center;
@@ -53,7 +53,8 @@
 }
 
 .mainTemp {
-    margin-top: 16px;
+    margin: 16px;
+    margin-top: 0px;
     display: grid;
     grid-template-rows: 1fr 1fr;
     background-color: #1e1e1e;

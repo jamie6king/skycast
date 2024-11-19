@@ -98,7 +98,7 @@ export default function Weather() {
 
                 { (mainLoading) ? (
 
-                    <BarLoader />
+                    <BarLoader color="#ffffff" cssOverride={{ width: "100%" }} />
 
                 ) : (
                     <>
@@ -137,7 +137,7 @@ export default function Weather() {
 
                 { (forecastLoading) ? (
 
-                    <BarLoader />
+                    <BarLoader color="#ffffff" cssOverride={{ width: "100%" }} />
 
                 ) : (
                     <>
@@ -150,10 +150,10 @@ export default function Weather() {
                                 { forecastData.list.map((day) => {
 
                                     const localDate = DateTime.fromSeconds(day.dt)
-                                    const date = DateTime.fromSeconds(day.dt).setZone(localTime.zone);
+                                    const date = localDate.setZone(localTime.zone);
                                     const dateDayOrNight = (date.hour > 6 && date.hour < 20) ? "d" : "n";
-                                    const now = new Date();
-                                    const dateString = (now.month < localDate.month|| now.day < localDate.day) ? localDate.toFormat("HH:mm") : "";
+                                    const now = DateTime.now();
+                                    const dateString = (now.month < localDate.month || now.day < localDate.day) ? localDate.toFormat("dd/MM") : "";
 
                                     return (
                                         <div key={day.dt}>
