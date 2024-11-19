@@ -1,4 +1,5 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import webpack from "webpack";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -45,6 +46,9 @@ export default [
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'public/index.html'),
             }),
+            new webpack.DefinePlugin({
+                "process.env": JSON.stringify(process.env)
+            })
         ],
         devServer: {
             static: {
