@@ -60,10 +60,15 @@
         border-radius: 4px;
         color: #ffffff;
         text-decoration: none;
+        transition: 0.05s ease-in-out;
 
         &[aria-selected=true] {
-            background-color: #ffffff;
+            background-color: #ffffff !important;
             color: #000000;
+        }
+
+        &:hover {
+            background-color: #2a2a2a;
         }
     }
 }
