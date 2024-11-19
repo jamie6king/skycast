@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ReactCountryFlag from "react-country-flag";
-import { AsyncTypeahead } from "react-bootstrap-typeahead";
+import { AsyncTypeahead, Highlighter, Menu, MenuItem } from "react-bootstrap-typeahead";
 
 // import styles
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'react-bootstrap-typeahead/css/Typeahead.css';
+import * as Styles from "./styles/root.module.scss";
 
 
 export default function Root() {
@@ -24,11 +23,11 @@ export default function Root() {
     // load list of locations
     const onType = (search) => {
 
+        setLoading(true)
+
         const url = "http://localhost:3000/locations"
 
         if (searchTimeout) clearTimeout(searchTimeout);
-        setLoading(true)
-
         searchTimeout = setTimeout(async () => {
             try {
 
@@ -54,7 +53,7 @@ export default function Root() {
             } finally {
                 setLoading(false);
             };
-        }, 500);
+        }, 1000);
     };
     
     const findLocation = (e) => {
@@ -66,27 +65,45 @@ export default function Root() {
     }
 
     return (
-        <div>
-            <form onSubmit={findLocation}>
-                <AsyncTypeahead
-                    id="city"
-                    autoFocus
-                    isLoading={isLoading}
-                    minLength={2}
-                    onSearch={onType}
-                    options={suggestions}
-                    labelKey={city => `${city.name}`}
-                    selected={city}
-                    onChange={setCity}
-                    renderMenuItemChildren={(city) => (
-                        <>
-                            <ReactCountryFlag countryCode={city.countryCode} />
-                            <span style={{paddingLeft: 8}}>{city.name}</span>
-                        </>
-                    )}
-                />
-                
-                <input type="submit" value="Search" />
+        <div className={Styles.wrapper}>
+            <form onSubmit={findLocation} className={Styles.form}>
+                <p>SkyCast</p>
+                <div className={Styles.formBox}>
+                    <AsyncTypeahead
+                                    id="city"
+                                    className={Styles.input}
+                                    autoFocus
+                                    isLoading={isLoading}
+                                    minLength={2}
+                                    onSearch={onType}
+                                    options={suggestions}
+                                    labelKey={city => `${city.name}`}
+                                    selected={city}
+                                    searchText={"Searching..."}
+                                    onChange={setCity}
+                                    renderInput={({ inputRef, referenceElementRef, ...inputProps }) => (
+                                        <input
+                                            {...inputProps}
+                                            ref={(input) => {
+                                                inputRef(input);
+                                                referenceElementRef(input);
+                                            }}
+                                            placeholder="Location name"
+                                        />
+                                    )}
+                                    renderMenu={(results, menuProps) => (
+                                            <Menu {...menuProps} className={Styles.inputMenu}>
+                                                { results.map((city, index) => (
+                                                    <MenuItem option={city} position={index} key={index}>
+                                                        <ReactCountryFlag countryCode={city.countryCode} />
+                                                        <span style={{ paddingLeft: 8 }}>{city.name}</span>                                                    </MenuItem>
+                                                ))}
+                                            </Menu>
+                                        )
+                                    }
+                        />
+                    <input className={`${Styles.submit} ${(city.length === 0) ? `${Styles.inactive}` : `${Styles.active}`}`} type="submit" value="Search" />
+                </div>
             </form>
         </div>
     )

@@ -1,0 +1,95 @@
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #121212;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+
+    p {
+        margin-bottom: 64px;
+        font-size: 48pt;
+        text-align: center;
+        color: #ffffff;
+    }
+}
+
+.formBox {
+    display: flex;
+    flex-direction: row;
+}
+
+.input {
+    position: relative;
+    height: 100px;
+
+    input {
+        width: 500px;
+        height: 48px;
+        padding: 0 8px;
+        font-size: 14pt;
+        font-weight: 300;
+        outline: none;
+        border: none;
+        border-radius: 8px;
+        background-color: #1e1e1e;
+        color: #ffffff;
+
+        &::placeholder {
+            color: #7f7f7f;
+        }
+    }
+}
+
+.inputMenu {
+    margin-top: 8px;
+    padding: 8px;
+    display: flex !important;
+    flex-direction: column;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-radius: 8px;
+
+    a {
+        padding: 8px 12px;
+        border-radius: 4px;
+        color: #ffffff;
+        text-decoration: none;
+
+        &[aria-selected=true] {
+            background-color: #ffffff;
+            color: #000000;
+        }
+    }
+}
+
+.submit {
+    height: 48px;
+    margin-left: 8px;
+    padding: 0 16px;
+    font-size: 14pt;
+    font-weight: 500;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.inactive {
+    cursor: not-allowed;
+}
+
+.active {
+    &:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
