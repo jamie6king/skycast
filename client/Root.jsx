@@ -26,6 +26,7 @@ export default function Root() {
         setLoading(true)
 
         const url = (process.env.NODE_ENV === "development") ? "http://localhost:3000/locations" : "/locations"
+        console.debug(url)
 
         if (searchTimeout) clearTimeout(searchTimeout);
         searchTimeout = setTimeout(async () => {
