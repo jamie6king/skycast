@@ -149,20 +149,6 @@ export default function Weather() {
 
                                 { forecastData.list.map((day) => {
 
-                                    // let date = new Date(day.dt * 1000)
-                                    // let dateHours = date.getHours();
-                                    // let dateMinutes = date.getMinutes();
-                                    // let dateDay = date.getDate();
-                                    // let dateMonth = date.getMonth() + 1;
-
-                                    // let today = new Date()
-                                    // let todayHours = today.getHours()
-                                    // let todayDay = today.getDate();
-                                    // let todayMonth = today.getMonth() + 1;
-
-                                    // let dateString = (todayMonth < dateMonth || todayDay < dateDay) ? `${dateDay.toString().padStart(2, "0")}/${dateMonth.toString().padStart(2, "0")}`:""
-                                    // let dateLocalHour = localTime.plus({ hours: ((Math.abs(date - today) / 3.6e6))}).hour
-                                    // let dateDayOrNight = (dateLocalHour > 6 && dateLocalHour < 20) ? "d" : "n"
                                     const localDate = DateTime.fromSeconds(day.dt)
                                     const date = DateTime.fromSeconds(day.dt).setZone(localTime.zone);
                                     const dateDayOrNight = (date.hour > 6 && date.hour < 20) ? "d" : "n";
@@ -184,6 +170,7 @@ export default function Weather() {
                                         </div>
                                     );
                                 })};
+
                             </div>
                         </div>
                     </>
