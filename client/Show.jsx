@@ -228,12 +228,16 @@ export default function Weather() {
                                                         type="semicircle"
                                                         value={data.visibility / 1000}
                                                         minValue={0}
-                                                        maxValue={10}
+                                                        maxValue={5}
                                                         arc={{
                                                                 subArcs: [
                                                                     {
-                                                                        limit: 1,
+                                                                        limit: 0.5,
                                                                         color: "#ff0000"
+                                                                    },
+                                                                    {
+                                                                        limit: 1,
+                                                                        color: "#ff7f00"
                                                                     },
                                                                     {
                                                                         limit: 2,
@@ -241,10 +245,6 @@ export default function Weather() {
                                                                     },
                                                                     {
                                                                         limit: 4,
-                                                                        color: "#ffff00"
-                                                                    },
-                                                                    {
-                                                                        limit: 6,
                                                                         color: "#7fff00"
                                                                     },
                                                                     {
