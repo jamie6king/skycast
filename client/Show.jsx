@@ -29,7 +29,7 @@ export default function Weather() {
 
     const [ mainLoading, setMainLoading ] = useState(true);
     const [ forecastLoading, setForecastLoading ] = useState(true);
-    const [ airQualityLoading, setAirQualityLoading ] = useState(true)
+    const [ airQualityLoading, setAirQualityLoading ] = useState(true);
 
     const [ data, setData ] = useState();
     const [ localTime, setLocalTime ] = useState();
@@ -143,7 +143,7 @@ export default function Weather() {
                                 </div>
 
                                 <div className={Styles.mainTempBoxes}>
-                                    <div className={Styles.mainTempBox}>
+                                    <div className={Styles.mainTempBox} data-testid="airquality">
                                         { (airQualityLoading) ? (
                                             <BeatLoader color="#ffffff" />
                                         ) : (

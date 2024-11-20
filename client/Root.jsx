@@ -67,7 +67,7 @@ export default function Root() {
     return (
         <div className={Styles.wrapper}>
             <form onSubmit={findLocation} className={Styles.form}>
-                <p>SkyCast</p>
+                <p data-testid="heading">SkyCast</p>
                 <div className={Styles.formBox}>
                     <AsyncTypeahead
                                     id="city"
@@ -89,6 +89,7 @@ export default function Root() {
                                                 referenceElementRef(input);
                                             }}
                                             placeholder="Location name"
+                                            data-testid="inputbox"
                                         />
                                     )}
                                     renderMenu={(results, menuProps) => (
