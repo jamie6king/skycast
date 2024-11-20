@@ -26,6 +26,14 @@ test("shows test location air quality", async ({ page }) => {
     await expect(airQuality).toHaveText("Air Quality");
 });
 
+test("shows test location air quality forecast", async ({ page }) => {
+
+    await page.goto("/location?lat=51.5073219&lon=-0.1276474");
+
+    const forecastList = page.getByTestId("airqualityforecast").locator("div");
+    await expect(forecastList).toHaveCount(96);
+});
+
 test("shows test location wind speed", async ({ page }) => {
 
     await page.goto("/location?lat=51.5073219&lon=-0.1276474");

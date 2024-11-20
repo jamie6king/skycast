@@ -118,6 +118,22 @@ app.post("/forecast", async (req, res) => {
     }
 });
 
+// return the forecasted air quality
+app.post("/forecast/airquality", async (req, res) => {
+
+    try {
+
+        const { lat, lon } = req.body;
+        const response = await fetcher.fetchAirQualityForecast(lat, lon);
+        res.send(response);
+
+    } catch {
+
+        res.status(500).send({ error: "Error fetching forecast" });
+
+    }
+});
+
 // run the app
 app.listen(port, () => {
     console.log(`Running on port ${port}`);

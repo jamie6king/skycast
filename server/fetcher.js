@@ -75,6 +75,22 @@ export class WeatherFetcher {
         }
     }
 
+    // Fetch forecast air quality
+    async fetchAirQualityForecast(lat, lon) {
+
+        const url = `https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${this._apiKey}`;
+
+        try {
+            const result = await fetch(url);
+            return await result.json();
+
+        } catch (error) {
+
+            console.error("Error fetching air quality data:", error);
+            return null;
+        }
+    };
+
     // Fetch weather forecast data
     async fetchForecast(lat, lon) {
 

@@ -30,12 +30,14 @@ export default function Weather() {
     const [ mainLoading, setMainLoading ] = useState(true);
     const [ forecastLoading, setForecastLoading ] = useState(true);
     const [ airQualityLoading, setAirQualityLoading ] = useState(true);
+    const [ airQualityForecastLoading, setAirQualityForecastLoading ] = useState(true);
 
     const [ data, setData ] = useState();
     const [ localTime, setLocalTime ] = useState();
     const [ localDayOrNight, setLocalDayOrNight ] = useState();
     const [ forecastData, setForecastData ] = useState();
     const [ airQualityData, setAirQualityData ] = useState();
+    const [ airQualityForecastData, setAirQualityForecastData ] = useState();
 
 
     useEffect(() => {
@@ -47,6 +49,7 @@ export default function Weather() {
             const weatherUrl =(process.env.REACT_APP_LOCAL == "yes") ? "http://localhost:3000/weather" :  "/weather";
             const forecastUrl = (process.env.REACT_APP_LOCAL == "yes") ? "http://localhost:3000/forecast" : "/forecast";
             const airQualityUrl = (process.env.REACT_APP_LOCAL == "yes") ? "http://localhost:3000/airquality" : "/airquality";
+            const airQualityForecastUrl = (process.env.REACT_APP_LOCAL == "yes") ? "http://localhost:3000/forecast/airquality" : "/forecast/airquality";
             const lat = searchParams.get("lat");
             const lon = searchParams.get("lon");
             const tz = tz_lookup(lat, lon)
@@ -64,7 +67,6 @@ export default function Weather() {
                 const weatherData = await weatherResponse.json();
 
                 setData(weatherData);
-                console.log(weatherData)
                 setMainLoading(false);
 
                 // get forecast data
@@ -88,6 +90,18 @@ export default function Weather() {
 
                 setAirQualityData(airQualityData)
                 setAirQualityLoading(false);
+
+                // get air quality forecast
+                const airQualityForecastResponse = await fetch(airQualityForecastUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ lat, lon })
+                });
+                const airQualityForecastData = await airQualityForecastResponse.json();
+
+                setAirQualityForecastData(airQualityForecastData);
+                console.log(airQualityForecastData)
+                setAirQualityForecastLoading(false);
 
             } catch (error) {
 
@@ -267,7 +281,7 @@ export default function Weather() {
                 </div>
                 <div className={Styles.info}>
 
-                    { (forecastLoading) ? (
+                    { (forecastLoading || airQualityForecastLoading) ? (
 
                         <BarLoader color="#ffffff" cssOverride={{ width: "100%" }} />
 
@@ -300,13 +314,58 @@ export default function Weather() {
                                                     {parseInt(day.main.temp).toString().padStart(2, "0")}°C
                                                 </p>
                                             </div>
-                                        );
-                                    })};
+                                        )
+                                    })}
+                                </div>
 
+                                <h1>Air Quality Forecast</h1>
+
+                                <div className={Styles.forecastBox} data-testid="airqualityforecast">
+
+                                    { airQualityForecastData.list.map((aq) => {
+
+                                        const localDate = DateTime.fromSeconds(aq.dt)
+                                        const date = localDate.setZone(localTime.zone);
+                                        const now = DateTime.now();
+                                        const dateString = (now.month < localDate.month || now.day < localDate.day) ? localDate.toFormat("dd/MM") : "";
+                                        let aqiColor;
+
+                                        switch (aq.main.aqi) {
+                                            case 1:
+                                                aqiColor = "#00ff00";
+                                                break;
+
+                                            case 2:
+                                                aqiColor = "#7fff00";
+                                                break;
+
+                                            case 3:
+                                                aqiColor = "#ffff00";
+                                                break;
+                                            
+                                            case 4:
+                                                aqiColor = "#ff7f00";
+                                                break;
+
+                                            case 5:
+                                                aqiColor = "#ff0000";
+                                                break;
+                                        }
+
+                                        return (
+                                            <div key={aq.dt}>
+                                                <p className={Styles.forecastDate}>
+                                                    <span>{dateString}</span><br />
+                                                    {date.toFormat("HH:mm")}
+                                                </p>
+                                                <p className={Styles.forecastAQI} style={{ color: aqiColor }}>{aq.main.aqi}</p>
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </>
-                    )};
+                    )}
                 </div>
             </div>
     );

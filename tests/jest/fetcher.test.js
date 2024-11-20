@@ -55,4 +55,16 @@ describe("weather fetching", () => {
         expect(forecast.city.name).toBe("London");
         expect(forecast.list.length).toBe(40);
     });
+
+    it("fetches the air quality forecast for a city", async () => {
+        const fetcher = new WeatherFetcher();
+        const coords = await fetcher._fetchCoords("london");
+
+        const lat = coords[0].lat;
+        const lon = coords[0].lon;
+
+        const airQualityForecast = await fetcher.fetchAirQualityForecast(lat, lon);
+
+        expect(airQualityForecast.list.length).toBe(96);
+    });
 });
