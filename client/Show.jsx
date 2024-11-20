@@ -64,6 +64,7 @@ export default function Weather() {
                 const weatherData = await weatherResponse.json();
 
                 setData(weatherData);
+                console.log(weatherData)
                 setMainLoading(false);
 
                 // get forecast data
@@ -156,32 +157,70 @@ export default function Weather() {
                                                                 maxValue={5}
                                                                 arc={{
                                                                         subArcs: [
-                                                                        {
-                                                                            limit: 1,
-                                                                            color: "#00ff00"
-                                                                        },
-                                                                        {
-                                                                            limit: 2,
-                                                                            color: "#7fff00"
-                                                                        },
-                                                                        {
-                                                                            limit: 3,
-                                                                            color: "#ffff00"
-                                                                        },
-                                                                        {
-                                                                            limit: 4,
-                                                                            color: "#ff7f00"
-                                                                        },
-                                                                        {
-                                                                            limit: 5,
-                                                                            color: "#ff0000"
-                                                                        }
-                                                                    ]
+                                                                            {
+                                                                                limit: 1,
+                                                                                color: "#00ff00"
+                                                                            },
+                                                                            {
+                                                                                limit: 2,
+                                                                                color: "#7fff00"
+                                                                            },
+                                                                            {
+                                                                                limit: 3,
+                                                                                color: "#ffff00"
+                                                                            },
+                                                                            {
+                                                                                limit: 4,
+                                                                                color: "#ff7f00"
+                                                                            },
+                                                                            {
+                                                                                limit: 5,
+                                                                                color: "#ff0000"
+                                                                            }
+                                                                        ]
                                                                 }}
                                                                 pointer={{ type: "blob", animationDelay: 0 }}
                                                 />
                                             </>
                                         )}
+                                    </div>
+                                    <div className={Styles.mainTempBox} data-testid="windspeed">
+                                        <p>Wind Speed</p>
+                                        <GaugeComponent
+                                                        type="semicircle"
+                                                        value={data.wind.speed}
+                                                        minValue={0}
+                                                        maxValue={25}
+                                                        arc={{
+                                                                subArcs: [
+                                                                    {
+                                                                        limit: 5,
+                                                                        color: "#00ff00"
+                                                                    },
+                                                                    {
+                                                                        limit: 10,
+                                                                        color: "#7fff00"
+                                                                    },
+                                                                    {
+                                                                        limit: 15,
+                                                                        color: "#ffff00"
+                                                                    },
+                                                                    {
+                                                                        limit: 20,
+                                                                        color: "#ff7f00"
+                                                                    },
+                                                                    {
+                                                                        color: "#ff0000"
+                                                                    }
+                                                                ]
+                                                        }}
+                                                        pointer={{ type: "blob", animationDelay: 0 }}
+                                                        labels={{
+                                                            valueLabel: {
+                                                                formatTextValue: (string) => { return `${parseFloat(string).toFixed(1)} MPH` }
+                                                            }
+                                                        }}
+                                        />
                                     </div>
                                 </div>
                             </div>
