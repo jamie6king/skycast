@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ReactCountryFlag from "react-country-flag";
-import { AsyncTypeahead, Highlighter, Menu, MenuItem } from "react-bootstrap-typeahead";
+import { AsyncTypeahead, Menu, MenuItem } from "react-bootstrap-typeahead";
 
 // import styles
 import * as Styles from "./styles/root.module.scss";
