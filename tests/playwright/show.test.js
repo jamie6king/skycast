@@ -33,3 +33,11 @@ test("shows test location wind speed", async ({ page }) => {
     const airQuality = page.getByTestId("windspeed").locator("p");
     await expect(airQuality).toHaveText("Wind Speed");
 });
+
+test("shows test location visibility", async ({ page }) => {
+
+    await page.goto("/location?lat=51.5073219&lon=-0.1276474");
+
+    const airQuality = page.getByTestId("visibility").locator("p");
+    await expect(airQuality).toHaveText("Visibility");
+});

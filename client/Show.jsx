@@ -222,6 +222,44 @@ export default function Weather() {
                                                         }}
                                         />
                                     </div>
+                                    <div className={Styles.mainTempBox} data-testid="visibility">
+                                        <p>Visibility</p>
+                                        <GaugeComponent
+                                                        type="semicircle"
+                                                        value={data.visibility / 1000}
+                                                        minValue={0}
+                                                        maxValue={10}
+                                                        arc={{
+                                                                subArcs: [
+                                                                    {
+                                                                        limit: 1,
+                                                                        color: "#ff0000"
+                                                                    },
+                                                                    {
+                                                                        limit: 2,
+                                                                        color: "#ffff00"
+                                                                    },
+                                                                    {
+                                                                        limit: 4,
+                                                                        color: "#ffff00"
+                                                                    },
+                                                                    {
+                                                                        limit: 6,
+                                                                        color: "#7fff00"
+                                                                    },
+                                                                    {
+                                                                        color: "#00ff00"
+                                                                    }
+                                                                ]
+                                                        }}
+                                                        pointer={{ type: "blob", animationDelay: 0 }}
+                                                        labels={{
+                                                            valueLabel: {
+                                                                formatTextValue: (string) => { return `${parseFloat(string).toFixed(1)} KM` }
+                                                            }
+                                                        }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </>
