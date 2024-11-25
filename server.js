@@ -75,8 +75,8 @@ app.post("/weather", async (req, res) => {
 
     try {
 
-        const { lat, lon } = req.body;
-        const response = await fetcher.fetchWeather(lat, lon);
+        const { a, o } = req.body;
+        const response = await fetcher.fetchWeather(a, o);
         res.send(response);
 
     } catch {
@@ -91,8 +91,8 @@ app.post("/airquality", async (req, res) => {
 
     try {
 
-        const { lat, lon } = req.body;
-        const response = await fetcher.fetchAirQuality(lat, lon);
+        const { a, o } = req.body;
+        const response = await fetcher.fetchAirQuality(a, o);
         res.send(response);
 
     } catch {
@@ -107,8 +107,8 @@ app.post("/forecast", async (req, res) => {
 
     try {
 
-        const { lat, lon } = req.body;
-        const response = await fetcher.fetchForecast(lat, lon);
+        const { a, o } = req.body;
+        const response = await fetcher.fetchForecast(a, o);
         res.send(response);
 
     } catch {
@@ -123,8 +123,8 @@ app.post("/forecast/airquality", async (req, res) => {
 
     try {
 
-        const { lat, lon } = req.body;
-        const response = await fetcher.fetchAirQualityForecast(lat, lon);
+        const { a, o } = req.body;
+        const response = await fetcher.fetchAirQualityForecast(a, o);
         res.send(response);
 
     } catch {

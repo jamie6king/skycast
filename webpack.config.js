@@ -47,7 +47,7 @@ export default [
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, 'public/index.html'),
+                template: path.resolve(__dirname, './index.html'),
             }),
             new webpack.DefinePlugin({
                 "process.env": JSON.stringify(process.env)
@@ -55,7 +55,7 @@ export default [
         ],
         devServer: {
             static: {
-                directory: path.resolve(__dirname, "public"),
+                directory: path.resolve(__dirname, "./"),
             },
             hot: true,
             open: false,

@@ -1,16 +1,16 @@
-import { WeatherFetcher } from "../../server/fetcher.js";
+import{WeatherFetcher as wf}from"../../server/fetcher.js";
 
 describe("weather fetching", () => {
 
     it("fetches city co-ords", async () => {
-        const fetcher = new WeatherFetcher();
+        const fetcher = new wf();
         const coords = await fetcher._fetchCoords("london");
 
         expect(coords[0].name).toBe("London");  
     });
 
     it("fetches list of cities", async () => {
-        const fetcher = new WeatherFetcher();
+        const fetcher = new wf();
         const list = await fetcher.fetchCities("london");
 
         expect(list[0].name).toBe("London");
@@ -19,7 +19,7 @@ describe("weather fetching", () => {
     });
 
     it("fetches the weather data for a city", async () => {
-        const fetcher = new WeatherFetcher();
+        const fetcher = new wf();
         const coords = await fetcher._fetchCoords("london");
 
         const lat = coords[0].lat;
@@ -31,7 +31,7 @@ describe("weather fetching", () => {
     });
 
     it("fetches the air quality for a city", async () => {
-        const fetcher = new WeatherFetcher();
+        const fetcher = new wf();
         const coords = await fetcher._fetchCoords("london");
 
         const lat = coords[0].lat;
@@ -44,7 +44,7 @@ describe("weather fetching", () => {
     });
 
     it("fetches the 5-day 3-hour forecast for a city", async () => {
-        const fetcher = new WeatherFetcher();
+        const fetcher = new wf();
         const coords = await fetcher._fetchCoords("london");
 
         const lat = coords[0].lat;
@@ -57,7 +57,7 @@ describe("weather fetching", () => {
     });
 
     it("fetches the air quality forecast for a city", async () => {
-        const fetcher = new WeatherFetcher();
+        const fetcher = new wf();
         const coords = await fetcher._fetchCoords("london");
 
         const lat = coords[0].lat;

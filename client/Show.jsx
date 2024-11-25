@@ -1,13 +1,13 @@
 // import react
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import React, { useEffect, useState } from "react"; //
+import { Link, useSearchParams } from "react-router-dom"; //
 
-import { BarLoader, BeatLoader } from "react-spinners";
-import { FaLocationDot } from "react-icons/fa6";
-import { IoIosArrowBack } from "react-icons/io";
+import { BarLoader, BeatLoader } from "react-spinners";//
+import { FaLocationDot } from "react-icons/fa6";//
+import { IoIosArrowBack } from "react-icons/io";//
 
 // import datetime
-import { DateTime } from "luxon";
+import { DateTime as DT } from "luxon";
 import tz_lookup from "@photostructure/tz-lookup";
 import { getName, registerLocale } from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
@@ -18,21 +18,10 @@ import GaugeComponent from "react-gauge-component";
 
 
 export default function Weather() {
+    useEffect(()=>{registerLocale(enLocale)});
 
-    // setup locale
-    useEffect(() => {
-        registerLocale(enLocale);
-    });
+    let[s]=useSearchParams();const[mL,ML]=useState(true);const[fL,FL]=useState(true);const[aL,AL]=useState(true);const[qL,QL]=useState(true);const[d,D]=useState();
 
-    // setup react states
-    const [ searchParams ] = useSearchParams();
-
-    const [ mainLoading, setMainLoading ] = useState(true);
-    const [ forecastLoading, setForecastLoading ] = useState(true);
-    const [ airQualityLoading, setAirQualityLoading ] = useState(true);
-    const [ airQualityForecastLoading, setAirQualityForecastLoading ] = useState(true);
-
-    const [ data, setData ] = useState();
     const [ localTime, setLocalTime ] = useState();
     const [ localDayOrNight, setLocalDayOrNight ] = useState();
     const [ forecastData, setForecastData ] = useState();
@@ -50,11 +39,7 @@ export default function Weather() {
             const forecastUrl = (process.env.REACT_APP_LOCAL == "yes") ? "http://localhost:3000/forecast" : "/forecast";
             const airQualityUrl = (process.env.REACT_APP_LOCAL == "yes") ? "http://localhost:3000/airquality" : "/airquality";
             const airQualityForecastUrl = (process.env.REACT_APP_LOCAL == "yes") ? "http://localhost:3000/forecast/airquality" : "/forecast/airquality";
-            const lat = searchParams.get("lat");
-            const lon = searchParams.get("lon");
-            const tz = tz_lookup(lat, lon)
-
-            setLocalTime(DateTime.now().setZone(tz))
+            let a=s.get("lat");let o=s.get("lon");setLocalTime(DT.now().setZone(tz_lookup(a,o)))
 
             try {
 
@@ -62,46 +47,46 @@ export default function Weather() {
                 const weatherResponse = await fetch(weatherUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ lat, lon }),
+                    body: JSON.stringify({ a, o }),
                 });
                 const weatherData = await weatherResponse.json();
 
-                setData(weatherData);
-                setMainLoading(false);
+                D(weatherData);
+                ML(false);
 
                 // get forecast data
                 const forecastResponse = await fetch(forecastUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ lat, lon }),
+                    body: JSON.stringify({ a, o }),
                 });
                 const forecastData = await forecastResponse.json();
 
                 setForecastData(forecastData);
-                setForecastLoading(false);
+                FL(false);
 
                 // get air quality data
                 const airQualityResponse = await fetch(airQualityUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ lat, lon })
+                    body: JSON.stringify({ a, o })
                 });
                 const airQualityData = await airQualityResponse.json();
 
                 setAirQualityData(airQualityData)
-                setAirQualityLoading(false);
+                AL(false);
 
                 // get air quality forecast
                 const airQualityForecastResponse = await fetch(airQualityForecastUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ lat, lon })
+                    body: JSON.stringify({ a, o })
                 });
                 const airQualityForecastData = await airQualityForecastResponse.json();
 
                 setAirQualityForecastData(airQualityForecastData);
                 console.log(airQualityForecastData)
-                setAirQualityForecastLoading(false);
+                QL(false);
 
             } catch (error) {
 
@@ -112,7 +97,7 @@ export default function Weather() {
         };
 
         fetchWeatherData();
-    }, [ searchParams ])
+    }, [ s ])
 
     // find if local time day or night
     useEffect(() => {
@@ -127,7 +112,7 @@ export default function Weather() {
 
                 <div className={Styles.weather}>
 
-                    { (mainLoading) ? (
+                    { (mL) ? (
 
                         <BarLoader color="#ffffff" cssOverride={{ width: "100%" }} />
 
@@ -138,7 +123,7 @@ export default function Weather() {
                                 <Link to="/"><IoIosArrowBack className={Styles.backIcon} /></Link>
 
                                 <FaLocationDot className={Styles.locationIcon} />
-                                <p>{data.name}, {getName(data.sys.country, "en")}</p>
+                                <p>{d.name}, {getName(d.sys.country, "en")}</p>
 
                                 <p className={Styles.localTime}>
                                     {localTime.toFormat("HH:mm")}
@@ -149,17 +134,17 @@ export default function Weather() {
                                 
                                 <div className={Styles.mainTempPanel}>
                                     <div>
-                                        <i className={`owf owf-${data.weather[0].id}-${localDayOrNight} owf-3x`} />
+                                        <i className={`owf owf-${d.weather[0].id}-${localDayOrNight} owf-3x`} />
 
-                                        <p><span>{parseInt(data.main.temp).toString().padStart(2, "0")}</span>°C</p>
+                                        <p><span>{parseInt(d.main.temp).toString().padStart(2, "0")}</span>°C</p>
 
-                                        <p className={Styles.feelsLike}>Feels like <span>{parseInt(data.main.feels_like).toString().padStart(2, "0")}</span>°C</p>
+                                        <p className={Styles.feelsLike}>Feels like <span>{parseInt(d.main.feels_like).toString().padStart(2, "0")}</span>°C</p>
                                     </div>
                                 </div>
 
                                 <div className={Styles.mainTempBoxes}>
                                     <div className={Styles.mainTempBox} data-testid="airquality">
-                                        { (airQualityLoading) ? (
+                                        { (aL) ? (
                                             <BeatLoader color="#ffffff" />
                                         ) : (
                                             <>
@@ -202,7 +187,7 @@ export default function Weather() {
                                         <p>Wind Speed</p>
                                         <GaugeComponent
                                                         type="semicircle"
-                                                        value={data.wind.speed}
+                                                        value={d.wind.speed}
                                                         minValue={0}
                                                         maxValue={25}
                                                         arc={{
@@ -240,7 +225,7 @@ export default function Weather() {
                                         <p>Visibility</p>
                                         <GaugeComponent
                                                         type="semicircle"
-                                                        value={data.visibility / 1000}
+                                                        value={d.visibility / 1000}
                                                         minValue={0}
                                                         maxValue={5}
                                                         arc={{
@@ -281,7 +266,7 @@ export default function Weather() {
                 </div>
                 <div className={Styles.info}>
 
-                    { (forecastLoading || airQualityForecastLoading) ? (
+                    { (fL || qL) ? (
 
                         <BarLoader color="#ffffff" cssOverride={{ width: "100%" }} />
 
@@ -295,10 +280,10 @@ export default function Weather() {
 
                                     { forecastData.list.map((day) => {
 
-                                        const localDate = DateTime.fromSeconds(day.dt)
+                                        const localDate = DT.fromSeconds(day.dt)
                                         const date = localDate.setZone(localTime.zone);
                                         const dateDayOrNight = (date.hour > 6 && date.hour < 20) ? "d" : "n";
-                                        const now = DateTime.now();
+                                        const now = DT.now();
                                         const dateString = (now.month < localDate.month || now.day < localDate.day) ? localDate.toFormat("dd/MM") : "";
 
                                         return (
@@ -324,9 +309,9 @@ export default function Weather() {
 
                                     { airQualityForecastData.list.map((aq) => {
 
-                                        const localDate = DateTime.fromSeconds(aq.dt)
+                                        const localDate = DT.fromSeconds(aq.dt)
                                         const date = localDate.setZone(localTime.zone);
-                                        const now = DateTime.now();
+                                        const now = DT.now();
                                         const dateString = (now.month < localDate.month || now.day < localDate.day) ? localDate.toFormat("dd/MM") : "";
                                         let aqiColor;
 

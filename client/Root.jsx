@@ -1,6 +1,6 @@
 // import react
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate as N } from "react-router-dom";
 
 import ReactCountryFlag from "react-country-flag";
 import { AsyncTypeahead, Menu, MenuItem } from "react-bootstrap-typeahead";
@@ -11,56 +11,40 @@ import * as Styles from "./styles/root.module.scss";
 
 export default function Root() {
 
-    // setup react states
-    const [ isLoading, setLoading ] = useState(false);
-    let searchTimeout;
-
-    const [ city, setCity ] = useState([]);
-    const [ suggestions, setSuggestions ] = useState([]);
-
-    const navigate = useNavigate()
+    const[l,L]=useState(false);let T;const[c,C]=useState([]);const[s,S]=useState([]);const n=N();
 
     // load list of locations
     const onType = (search) => {
 
-        setLoading(true)
+        L(true)
 
         const url = (process.env.REACT_APP_LOCAL == "yes") ? "http://localhost:3000/locations" : "/locations"
 
-        if (searchTimeout) clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(async () => {
-            try {
+        (T)&&clearTimeout(T);
+        T = setTimeout(async () => {
 
-                const response = await fetch(url, {
+                const r=await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ string: search }),
                 });
-                
-                if (response.ok) {
 
-                    const results = await response.json();
-                    setSuggestions(results)
+                    const results = await r.json();
+                    S(results)
 
-                } else {
 
                     console.error("Failed to fetch suggestions");
 
-                }
 
-            } catch (error) {
-                console.error("Error fetching suggestions:", error);
-            } finally {
-                setLoading(false);
-            };
-        }, 100);
+                L(false);
+            },250);
     };
     
     const findLocation = (e) => {
         e.preventDefault()
 
-        if (city.length !== 0) {
-            navigate(`/location?lat=${city[0].lat}&lon=${city[0].lon}`);
+        if (c.length !== 0) {
+            n(`/location?lat=${c[0].lat}&lon=${c[0].lon}`);
         }
     }
 
@@ -73,14 +57,14 @@ export default function Root() {
                                     id="city"
                                     className={Styles.input}
                                     autoFocus
-                                    isLoading={isLoading}
+                                    isLoading={l}
                                     minLength={2}
                                     onSearch={onType}
-                                    options={suggestions}
-                                    labelKey={city => `${city.name}`}
-                                    selected={city}
+                                    options={s}
+                                    labelKey={c => `${c.name}`}
+                                    selected={c}
                                     searchText={"Searching..."}
-                                    onChange={setCity}
+                                    onChange={C}
                                     renderInput={({ inputRef, referenceElementRef, ...inputProps }) => (
                                         <input
                                             {...inputProps}
@@ -94,16 +78,16 @@ export default function Root() {
                                     )}
                                     renderMenu={(results, menuProps) => (
                                             <Menu {...menuProps} className={Styles.inputMenu}>
-                                                { results.map((city, index) => (
-                                                    <MenuItem option={city} position={index} key={index}>
-                                                        <ReactCountryFlag countryCode={city.countryCode} />
-                                                        <span style={{ paddingLeft: 8 }}>{city.name}</span>                                                    </MenuItem>
+                                                { results.map((c, index) => (
+                                                    <MenuItem option={c} position={index} key={index}>
+                                                        <ReactCountryFlag countryCode={c.countryCode} />
+                                                        <span style={{ paddingLeft: 8 }}>{c.name}</span>                                                    </MenuItem>
                                                 ))}
                                             </Menu>
                                         )
                                     }
                         />
-                    <input className={`${Styles.submit} ${(city.length === 0) ? `${Styles.inactive}` : `${Styles.active}`}`} type="submit" value="Search" />
+                    <input className={`${Styles.submit} ${(c.length === 0) ? `${Styles.inactive}` : `${Styles.active}`}`} type="submit" value="Search" />
                 </div>
             </form>
         </div>
