@@ -1,6 +1,7 @@
 # SkyCast
 
 ## Tech
+
 - Front-end written in [React](https://react.dev/).
     - Uses [React Router](https://reactrouter.com/en/main) for routing.
     - Uses [Luxon](https://www.npmjs.com/package/luxon) for advanced DateTime classes.

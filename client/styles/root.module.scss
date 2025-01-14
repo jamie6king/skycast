@@ -62,7 +62,7 @@
         text-decoration: none;
         transition: 0.05s ease-in-out;
 
-        &[aria-selected=true] {
+        &[aria-selected="true"] {
             background-color: #ffffff !important;
             color: #000000;
         }

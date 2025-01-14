@@ -90,7 +90,6 @@
     display: flex;
     gap: 16px;
     border-radius: 16px;
-
 }
 
 .mainTempBox {
@@ -149,7 +148,8 @@
         background-color: #2a2a2a;
         border-radius: 12px;
 
-        p, span {
+        p,
+        span {
             text-align: center;
             color: #ffffff;
             font-family: "Fira Code", monospace;

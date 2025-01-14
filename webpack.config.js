@@ -11,12 +11,12 @@ dotenv.config();
 
 export default [
     {
-        mode: 'development',
-        entry: './client.jsx',
+        mode: "development",
+        entry: "./client.jsx",
         output: {
-            filename: 'bundle.js',
+            filename: "bundle.js",
             path: path.resolve(__dirname, "dist/client"),
-            publicPath: "/"
+            publicPath: "/",
         },
         module: {
             rules: [
@@ -24,34 +24,34 @@ export default [
                     test: /\.(js|jsx)$/,
                     exclude: /node_modules/,
                     use: {
-                        loader: 'babel-loader',
+                        loader: "babel-loader",
                     },
                 },
                 {
                     test: /\.(scss|css)$/,
                     use: [
-                        'style-loader',
+                        "style-loader",
                         {
-                            loader: 'css-loader',
+                            loader: "css-loader",
                             options: {
                                 modules: true,
                             },
                         },
-                        'sass-loader',
+                        "sass-loader",
                     ],
                 },
             ],
         },
         resolve: {
-            extensions: ['.js', '.jsx'],
+            extensions: [".js", ".jsx"],
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, 'public/index.html'),
+                template: path.resolve(__dirname, "public/index.html"),
             }),
             new webpack.DefinePlugin({
-                "process.env": JSON.stringify(process.env)
-            })
+                "process.env": JSON.stringify(process.env),
+            }),
         ],
         devServer: {
             static: {
@@ -70,14 +70,14 @@ export default [
         output: {
             filename: "server.bundle.cjs",
             path: path.resolve(__dirname, "dist/server"),
-            libraryTarget: "commonjs2"
+            libraryTarget: "commonjs2",
         },
         module: {
             rules: [
                 {
                     test: /\.js$/,
                     exclude: /node_modules/,
-                    use: "babel-loader"
+                    use: "babel-loader",
                 },
             ],
         },
@@ -89,7 +89,7 @@ export default [
             os: "commonjs os",
             fs: "commonjs fs",
             path: "commonjs path",
-            dotenv: "commonjs dotenv"
+            dotenv: "commonjs dotenv",
         },
     },
 ];

@@ -1,7 +1,6 @@
 import { test, expect } from "@playwright/test";
 
 test("webpage loads", async ({ page }) => {
-
     await page.goto("/");
 
     const title = page.getByTestId("heading");
@@ -9,7 +8,6 @@ test("webpage loads", async ({ page }) => {
 });
 
 test("can load weather page", async ({ page }) => {
-
     await page.goto("/");
 
     const inputBox = page.getByTestId("inputbox");
@@ -26,6 +24,6 @@ test("can load weather page", async ({ page }) => {
 
     const locationBar = page.getByTestId("locationbar");
     const locationBarText = locationBar.locator("p").getByText(",");
-    
+
     await expect(locationBarText).toHaveText("London, United Kingdom");
 });

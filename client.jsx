@@ -12,25 +12,28 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 // setup route
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+    [
+        {
+            path: "/",
+            element: <Root />,
+        },
+        {
+            path: "/location",
+            element: <Weather />,
+        },
+    ],
     {
-        path: "/",
-        element: <Root />,
-    },
-    {
-        path: "/location",
-        element: <Weather />,
-    },
-], {
-    future: {
-        v7_startTransition: true,
-        v7_fetcherPersist: true,
-        v7_normalizeFormMethod: true,
-        v7_partialHydration: true,
-        v7_skipActionErrorRevalidation: true,
-        v7_relativeSplatPath: true
+        future: {
+            v7_startTransition: true,
+            v7_fetcherPersist: true,
+            v7_normalizeFormMethod: true,
+            v7_partialHydration: true,
+            v7_skipActionErrorRevalidation: true,
+            v7_relativeSplatPath: true,
+        },
     }
-});
+);
 
 // render react
 root.render(

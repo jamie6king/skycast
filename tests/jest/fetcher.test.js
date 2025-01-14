@@ -1,12 +1,11 @@
 import { WeatherFetcher } from "../../server/fetcher.js";
 
 describe("weather fetching", () => {
-
     it("fetches city co-ords", async () => {
         const fetcher = new WeatherFetcher();
         const coords = await fetcher._fetchCoords("london");
 
-        expect(coords[0].name).toBe("London");  
+        expect(coords[0].name).toBe("London");
     });
 
     it("fetches list of cities", async () => {
@@ -26,7 +25,7 @@ describe("weather fetching", () => {
         const lon = coords[0].lon;
 
         const weather = await fetcher.fetchWeather(lat, lon);
-        
+
         expect(weather.name).toBe("London");
     });
 
@@ -38,7 +37,7 @@ describe("weather fetching", () => {
         const lon = coords[0].lon;
 
         const weather = await fetcher.fetchAirQuality(lat, lon);
-        
+
         expect(weather.coord.lat.toFixed(1)).toBe(lat.toFixed(1));
         expect(weather.coord.lon.toFixed(1)).toBe(lon.toFixed(1));
     });
@@ -63,7 +62,10 @@ describe("weather fetching", () => {
         const lat = coords[0].lat;
         const lon = coords[0].lon;
 
-        const airQualityForecast = await fetcher.fetchAirQualityForecast(lat, lon);
+        const airQualityForecast = await fetcher.fetchAirQualityForecast(
+            lat,
+            lon
+        );
 
         expect(airQualityForecast.list.length).toBeGreaterThan(0);
     });

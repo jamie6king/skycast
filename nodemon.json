@@ -1,12 +1,7 @@
 {
     "verbose": true,
-    "watch": [
-        "server/",
-        "server.js"
-    ],
-    "ignore": [
-        "client/"
-    ],
+    "watch": ["server/", "server.js"],
+    "ignore": ["client/"],
     "ext": "js",
     "delay": 1000
 }

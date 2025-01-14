@@ -6,7 +6,7 @@ export default defineConfig({
     webServer: {
         command: "npm run dev",
         url: "http://127.0.0.1:8080",
-        reuseExistingServer: !process.env.CI
+        reuseExistingServer: !process.env.CI,
     },
 
     use: {
@@ -14,9 +14,9 @@ export default defineConfig({
         headless: true,
         ignoreHTTPSErrors: true,
         screenshot: "only-on-failure",
-        video: "retain-on-failure"
+        video: "retain-on-failure",
     },
 
     timeout: 30000,
-    retries: process.env.CI ? 2 : 0
+    retries: process.env.CI ? 2 : 0,
 });
